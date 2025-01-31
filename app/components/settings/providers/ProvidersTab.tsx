@@ -6,8 +6,9 @@ import type { IProviderConfig } from '~/types/model';
 import { logStore } from '~/lib/stores/logs';
 
 // Import a default fallback icon
-import DefaultIcon from '/icons/Default.svg'; // Adjust the path as necessary
 import { providerBaseUrlEnvKeys } from '~/utils/constants';
+
+const DefaultIcon = '/icons/Default.svg'; // Adjust the path as necessary
 
 export default function ProvidersTab() {
   const { providers, updateProviderSettings, isLocalModel } = useSettings();
@@ -35,8 +36,8 @@ export default function ProvidersTab() {
     newFilteredProviders.sort((a, b) => a.name.localeCompare(b.name));
 
     // Split providers into regular and URL-configurable
-    const regular = newFilteredProviders.filter(p => !URL_CONFIGURABLE_PROVIDERS.includes(p.name));
-    const urlConfigurable = newFilteredProviders.filter(p => URL_CONFIGURABLE_PROVIDERS.includes(p.name));
+    const regular = newFilteredProviders.filter((p) => !URL_CONFIGURABLE_PROVIDERS.includes(p.name));
+    const urlConfigurable = newFilteredProviders.filter((p) => URL_CONFIGURABLE_PROVIDERS.includes(p.name));
 
     setFilteredProviders([...regular, ...urlConfigurable]);
   }, [providers, searchTerm, isLocalModel]);
@@ -112,8 +113,8 @@ export default function ProvidersTab() {
     );
   };
 
-  const regularProviders = filteredProviders.filter(p => !URL_CONFIGURABLE_PROVIDERS.includes(p.name));
-  const urlConfigurableProviders = filteredProviders.filter(p => URL_CONFIGURABLE_PROVIDERS.includes(p.name));
+  const regularProviders = filteredProviders.filter((p) => !URL_CONFIGURABLE_PROVIDERS.includes(p.name));
+  const urlConfigurableProviders = filteredProviders.filter((p) => URL_CONFIGURABLE_PROVIDERS.includes(p.name));
 
   return (
     <div className="p-4">
@@ -128,20 +129,17 @@ export default function ProvidersTab() {
       </div>
 
       {/* Regular Providers Grid */}
-      <div className="grid grid-cols-2 gap-4 mb-8">
-        {regularProviders.map(renderProviderCard)}
-      </div>
+      <div className="grid grid-cols-2 gap-4 mb-8">{regularProviders.map(renderProviderCard)}</div>
 
       {/* URL Configurable Providers Section */}
       {urlConfigurableProviders.length > 0 && (
         <div className="mt-8">
           <h3 className="text-lg font-semibold mb-2 text-bolt-elements-textPrimary">Experimental Providers</h3>
           <p className="text-sm text-bolt-elements-textSecondary mb-4">
-            These providers are experimental and allow you to run AI models locally or connect to your own infrastructure. They require additional setup but offer more flexibility.
+            These providers are experimental and allow you to run AI models locally or connect to your own
+            infrastructure. They require additional setup but offer more flexibility.
           </p>
-          <div className="space-y-4">
-            {urlConfigurableProviders.map(renderProviderCard)}
-          </div>
+          <div className="space-y-4">{urlConfigurableProviders.map(renderProviderCard)}</div>
         </div>
       )}
     </div>
